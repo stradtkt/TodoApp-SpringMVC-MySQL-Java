@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,10 +24,41 @@
 				<div class="row">
 					<div class="col-4">
 						<h1 class="text-center">Menu</h1>
-						
+						<p><a class="btn btn-primary btn-block btn-lg" href="${pageContext.request.contextPath}/home"><i class="far fa-eye"></i> View Todos</a></p>
+						<p><a class="btn btn-success btn-block btn-lg" href="${pageContext.request.contextPath}/add"><i class="fas fa-plus"></i> Add Todo</a></p>
 					</div>
 					<div class="col-8">
-					
+						<table class="table table-hover table-striped text-center">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Title</th>
+									<th>Description</th>
+									<th>Deadline</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="tempTodo" items="${todos}">
+									<c:url var="updateLink" value="/edit">
+										<c:param name="id" value="${tempTodo.id}"/>
+									</c:url>
+									<c:url var="deleteLink" value="/delete">
+										<c:param name="id" value="${tempTodo.id}"/>
+									</c:url>
+									<tr>
+										<td>${tempTodo.id}</td>
+										<td>${tempTodo.title}</td>
+										<td>${tempTodo.description}</td>
+										<td>${tempTodo.deadline}</td>
+										<td>
+											<a href="${updateLink}" class="btn btn-warning btn-sm"><i class="far fa-edit"></i></a> | 
+											<a href="${deleteLink}" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
